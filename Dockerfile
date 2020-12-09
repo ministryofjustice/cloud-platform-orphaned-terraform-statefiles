@@ -22,6 +22,7 @@ RUN pip3 install awscli
 
 ENV KOPS_VERSION=1.17.2
 RUN curl -Lo /usr/local/bin/kops https://github.com/kubernetes/kops/releases/download/v${KOPS_VERSION}/kops-linux-amd64
+RUN chmod +x /usr/local/bin/kops
 
 RUN chown 1000:1000 /app
 USER 1000
