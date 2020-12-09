@@ -14,4 +14,4 @@ ctsf = DeletedClusterTerraformStateFiles.new(
   cluster_region: "eu-west-2",
 )
 
-pp ctsf.list
+puts({ data: ctsf.list, updated_at: Time.now }.to_json)
