@@ -3,7 +3,8 @@
 require "bundler/setup"
 require "aws-sdk-s3"
 
-class CurrentCluster
+# List the short names of all the clusters which currently exist
+class ClusterLister
   attr_reader :region
 
   def initialize(params)
@@ -29,7 +30,9 @@ class CurrentCluster
   end
 end
 
-class ClusterTerraformStateFiles
+# List terraform state files in the S3 bucket which belong to non-existent
+# clusters
+class DeletedClusterTerraformStateFiles
   attr_reader :s3client, :bucket, :cluster_region
 
   # These prefixes identify terraform statefiles which do not belong to a
@@ -67,7 +70,7 @@ class ClusterTerraformStateFiles
   end
 
   def current_clusters
-    @current_clusters ||= CurrentCluster.new(region: cluster_region).list
+    @current_clusters ||= ClusterLister.new(region: cluster_region).list
   end
 
   def exclude_non_cluster_files(list)
@@ -91,7 +94,7 @@ s3 = Aws::S3::Resource.new(
   secret_access_key: ENV.fetch("TF_STATE_BUCKET_AWS_SECRET_ACCESS_KEY"),
 )
 
-ctsf = ClusterTerraformStateFiles.new(
+ctsf = DeletedClusterTerraformStateFiles.new(
   s3: s3,
   bucket: "cloud-platform-terraform-state",
   cluster_region: "eu-west-2",
