@@ -17,6 +17,7 @@ RUN bundle install
 COPY bin ./bin
 COPY lib ./lib
 
+RUN chown 1000:1000 /app
 USER 1000
 
 CMD ["/bin/sh", "./bin/post-data.sh"]
