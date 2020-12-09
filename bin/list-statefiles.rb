@@ -24,7 +24,7 @@ class CurrentCluster
   end
 
   def eks_clusters
-    json = `aws eks list-clusters --region=#{region}`
+    json = `aws eks list-clusters --region=#{region} --output json`
     JSON.parse(json).fetch("clusters")
   end
 end
@@ -85,9 +85,14 @@ class ClusterTerraformStateFiles
   end
 end
 
+s3 = Aws::S3::Resource.new(
+  region: ENV.fetch("TF_STATE_BUCKET_REGION"),
+  access_key_id: ENV.fetch("TF_STATE_BUCKET_AWS_ACCESS_KEY_ID"),
+  secret_access_key: ENV.fetch("TF_STATE_BUCKET_AWS_SECRET_ACCESS_KEY"),
+)
 
 ctsf = ClusterTerraformStateFiles.new(
-  s3: Aws::S3::Resource.new(region: "eu-west-1"),
+  s3: s3,
   bucket: "cloud-platform-terraform-state",
   cluster_region: "eu-west-2",
 )
