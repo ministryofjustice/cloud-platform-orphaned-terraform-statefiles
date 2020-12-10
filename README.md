@@ -1,5 +1,7 @@
 # List "Orphaned" Terraform State Files
 
+[![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-orphaned-terraform-statefiles/all.svg?style=flat-square)](https://github.com/ministryofjustice/cloud-platform-orphaned-terraform-statefiles/releases)
+
 Sometimes terraform state files belonging to test clusters are not deleted when they should be, for example if an error occurs when deleting the cluster.
 
 This repository lists all terraform state files in our S3 bucket, excluding any which;
