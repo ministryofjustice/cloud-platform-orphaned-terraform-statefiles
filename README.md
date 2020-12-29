@@ -1,4 +1,4 @@
-# List "Orphaned" Terraform State Files
+# DEPRECATED List "Orphaned" Terraform State Files
 
 [![Releases](https://img.shields.io/github/release/ministryofjustice/cloud-platform-orphaned-terraform-statefiles/all.svg?style=flat-square)](https://github.com/ministryofjustice/cloud-platform-orphaned-terraform-statefiles/releases)
 
